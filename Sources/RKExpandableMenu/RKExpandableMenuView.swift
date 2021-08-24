@@ -1,4 +1,3 @@
-
 //
 //  ExpandableNavigationBarItemView.swift
 //  Magnet
@@ -8,16 +7,40 @@
 
 import UIKit
 
-public class ExpandableMenuView: UIView {
+public class RKExpandableMenuView: UIView {
     static let identifier = "ExpandableCell"
+    
+    public typealias Model = RKExpandableRow
+    public var model: Model? { didSet { setModel(model) } }
+    
+    private var datasource = RKExpandableRowModel() {
+        didSet {
+            tableView.reloadData()
+            layoutIfNeeded()
+        }
+    }
+    
+    private func setModel(_ model: Model?) {
+        guard let model = model else { fatalError(#function) }
+        datasource = RKExpandableRowModel(
+            headerTitle: model.headerTitle,
+            headerAction: model.headerAction,
+            items: model.items,
+            footerTitle: model.footerTitle,
+            footerImage: model.footerImage,
+            footerAction: model.footerAction
+        )
+    }
     
     private lazy var myHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: .zero)
     
-    public var customBackgroundColor = #colorLiteral(red: 0.9294117647, green: 0.9294117647, blue: 0.9294117647, alpha: 0.5005648784) {
+    public var customBackgroundColor: UIColor = .white {
         didSet {
             tableView.reloadData()
         }
     }
+    
+    public var separatorStyle: UITableViewCell.SeparatorStyle = .singleLine
     
     public var textAlignment: NSTextAlignment = .left { didSet { tableView.reloadData() } }
     
@@ -27,21 +50,13 @@ public class ExpandableMenuView: UIView {
     
     public var headerFont: UIFont = .boldSystemFont(ofSize: 16) { didSet { tableView.reloadData() } }
     
-    public var model: ExpandableMenuItems? { didSet { setModel(model) } }
-    
-    private func setModel(_ model: ExpandableMenuItems?) {
-        tableView.reloadData()
-        layoutIfNeeded()
-    }
-    
     var mainView = UIView()
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .singleLine
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
         return tableView
     }()
     
@@ -79,17 +94,36 @@ public class ExpandableMenuView: UIView {
         tableView.separatorInset = .init(top: .zero, left: 20, bottom: .zero, right: 20)
     }
     
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        tableView.separatorStyle = separatorStyle
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         mainView.clipsToBounds = true
-        mainView.layer.cornerRadius = Style.Spacing.cornerRadius
         layer.shadowColor = UIColor.lightGray.cgColor
         layer.shadowOpacity = 0.3
         layer.shadowRadius = 3
         layer.shadowOffset = .zero
         layer.cornerRadius = radius
         
-        myHeightConstraint.constant = tableView.contentSize.height
+        if Setting.cellSize * CGFloat(Setting.numberOfShownCell) <= tableView.contentSize.height {
+            let numberOfCells = Setting.numberOfShownCell <= datasource.items.count ? Setting.numberOfShownCell : datasource.items.count
+            var headerFooterHeight: CGFloat = .zero
+            
+            if model?.headerTitle != nil {
+                headerFooterHeight += Setting.cellSize
+            }
+            
+            if model?.footerTitle != nil {
+                headerFooterHeight += Setting.cellSize
+            }
+            
+            myHeightConstraint.constant = (Setting.cellSize * CGFloat(numberOfCells)) + headerFooterHeight
+        } else {
+            myHeightConstraint.constant = tableView.contentSize.height
+        }
     }
     
     public func selectRow(at index: Int) {
@@ -103,7 +137,7 @@ public class ExpandableMenuView: UIView {
     
 }
 
-extension ExpandableMenuView: UITableViewDelegate {
+extension RKExpandableMenuView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let model = model else { fatalError("Must have model") }
         guard model.items[indexPath.row].isSelected == false else { return }
@@ -112,15 +146,14 @@ extension ExpandableMenuView: UITableViewDelegate {
         }
         self.model?.items[indexPath.row].isSelected = true
         tableView.reloadData()
-        model.items[indexPath.row].action?()
-        isHidden = true
+        model.items[indexPath.row].action()
     }
 }
 
-extension ExpandableMenuView: UITableViewDataSource {
+extension RKExpandableMenuView: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerTitle = model?.headerTitle {
+        if let headerTitle = datasource.headerTitle {
             let view = UIView()
             let captionLabel = UILabel()
             view.addSubview(captionLabel)
@@ -128,11 +161,12 @@ extension ExpandableMenuView: UITableViewDataSource {
             NSLayoutConstraint.activate([
                 captionLabel.topAnchor.constraint(equalTo: view.topAnchor),
                 captionLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                captionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                captionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+                captionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Setting.horizontalInset),
+                captionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Setting.horizontalInset)
             ])
             captionLabel.text = headerTitle
             captionLabel.textColor = .black
+            view.backgroundColor = customBackgroundColor
             captionLabel.textAlignment = textAlignment
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerDidTouch))
             view.addGestureRecognizer(tapGesture)
@@ -144,48 +178,50 @@ extension ExpandableMenuView: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let expandableFooterMenuView = ExpandableFooterMenuView()
-        expandableFooterMenuView.model = ExpandableFooterMenuModel(title: model?.footerTitle, image: model?.footerImage)
+        expandableFooterMenuView.model = ExpandableFooterMenuModel(title: datasource.footerTitle, image: datasource.footerImage)
+        expandableFooterMenuView.backgroundColor = customBackgroundColor
         return expandableFooterMenuView
     }
     
     @objc private func headerDidTouch() {
-        model?.headerAction?()
+        datasource.headerAction?()
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if model?.headerTitle == nil {
+        if datasource.headerTitle == nil {
             return .zero
         } else {
-            return 44
+            return Setting.cellSize
         }
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if model?.footerTitle == nil {
+        if datasource.footerTitle == nil {
             return .zero
         } else {
-            return 44
+            return Setting.cellSize
         }
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
+        Setting.cellSize
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model?.items.count ?? 0
+        datasource.items.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BaseTableViewCell<ExpandableCellView>()
-
-//        cell.content.captionLabel.textColor = model?.items[indexPath.row].isSelected == true ? Theme.color.accent : .black
-//        cell.content.tickImageView.isHidden = model?.items[indexPath.row].isSelected == false
-        cell.content.tickImageView.isHidden = true
+        let preferredImage: UIImage
+        if let image = model?.items[indexPath.row].selectedImage {
+            preferredImage = image
+        } else {
+            preferredImage = Setting.defaultSelectedImage
+        }
+        cell.content.model = ExpandableCellModel(title: datasource.items[indexPath.row].title, selectedImage: preferredImage, isSelected: datasource.items[indexPath.row].isSelected, isImageStable: datasource.items[indexPath.row].isImageStable)
+        
         cell.backgroundColor = customBackgroundColor
-        cell.content.captionLabel.font = font
-        cell.content.captionLabel.text = model?.items[indexPath.row].title
-        cell.content.captionLabel.textAlignment = textAlignment
         cell.selectionStyle = .none
         return cell
     }
@@ -199,9 +235,44 @@ extension ExpandableMenuView: UITableViewDataSource {
     
 }
 
-extension ExpandableMenuView {
+extension RKExpandableMenuView {
+    struct RKExpandableRowModel: RKExpandableRow {
+        
+        init(headerTitle: String? = nil, headerAction: (() -> ())? = nil, items: [RKExpandableRowItem], footerTitle: String? = nil, footerImage: UIImage? = nil, footerAction: (() -> ())? = nil) {
+            self.headerTitle = headerTitle
+            self.headerAction = headerAction
+            self.items = items
+            self.footerTitle = footerTitle
+            self.footerImage = footerImage
+            self.footerAction = footerAction
+        }
+        
+        init() {
+            self.headerTitle = nil
+            self.headerAction = nil
+            self.items = []
+            self.footerTitle = nil
+            self.footerImage = nil
+            self.footerAction = nil
+        }
+        
+        var headerTitle: String?
+        var headerAction: (() -> ())?
+        var items: [RKExpandableRowItem]
+        var footerTitle: String?
+        var footerImage: UIImage?
+        var footerAction: (() -> ())?
+    }
+    
     struct ExpandableFooterMenuModel: ExpandableFooterMenu {
         var title: String?
-        var image: String?
+        var image: UIImage?
+    }
+    
+    struct ExpandableCellModel: ExpandableCell {
+        var title: String
+        var selectedImage: UIImage?
+        var isSelected: Bool
+        var isImageStable: Bool
     }
 }

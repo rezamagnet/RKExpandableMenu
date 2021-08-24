@@ -7,19 +7,42 @@
 
 import UIKit
 
+protocol ExpandableCell {
+    var title: String { get }
+    var selectedImage: UIImage? { get }
+    var isSelected: Bool { get }
+    var isImageStable: Bool { get }
+}
+
 class ExpandableCellView: UIView {
+    
+    typealias Model = ExpandableCell
+    var model: Model? { didSet { setModel(model) } }
+    
+    private func setModel(_ model: Model?) {
+        guard let model = model else { return }
+        captionLabel.text = model.title
+        tickImageView.image = model.selectedImage
+        tickImageView.isHidden = !model.isSelected && model.isImageStable == false
+        switch Setting.selectedImageSide {
+        case .onLeft:
+            rootStackView.insertArrangedSubview(tickImageView, at: .zero)
+        case .onRight:
+            rootStackView.insertArrangedSubview(tickImageView, at: 1)
+        }
+    }
     
     let captionLabel = UILabel()
     let tickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: Setting.smallImageSize).isActive = true
         return imageView
     }()
     
     lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [tickImageView, captionLabel])
+        let stackView = UIStackView(arrangedSubviews: [captionLabel])
         stackView.axis = .horizontal
         stackView.spacing = .zero
         return stackView

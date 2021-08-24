@@ -9,7 +9,7 @@ import UIKit
 
 protocol ExpandableFooterMenu {
     var title: String? { get }
-    var image: String? { get }
+    var image: UIImage? { get }
 }
 
 class ExpandableFooterMenuView: UIView {
@@ -20,13 +20,13 @@ class ExpandableFooterMenuView: UIView {
     private lazy var rootStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
     
     typealias Model = ExpandableFooterMenu
-    var model: Model? { didSet {} }
+    var model: Model? { didSet { setModel(model) } }
     
     private func setModel(_ model: Model?) {
         guard let model = model else { fatalError() }
         titleLabel.text = model.title
         if let image = model.image {
-            imageView.image = UIImage(named: image)
+            imageView.image = image
         } else {
             imageView.isHidden = true
         }
@@ -43,6 +43,8 @@ class ExpandableFooterMenuView: UIView {
     }
     
     private func setup() {
+        rootStackView.isLayoutMarginsRelativeArrangement = true
+        rootStackView.layoutMargins = .init(top: .zero, left: Setting.horizontalInset, bottom: .zero, right: Setting.horizontalInset)
         rootStackView.axis = .horizontal
         rootStackView.spacing = 8
         addSubview(rootStackView)
@@ -53,6 +55,10 @@ class ExpandableFooterMenuView: UIView {
             rootStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             rootStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: Setting.smallImageSize).isActive = true
     }
 
 }
