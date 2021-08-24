@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BBEA386E26D2765F001996DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEA386D26D2765F001996DB /* AppDelegate.swift */; };
+		BBEA387026D2765F001996DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEA386F26D2765F001996DB /* SceneDelegate.swift */; };
+		BBEA387226D2765F001996DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEA387126D2765F001996DB /* ViewController.swift */; };
+		BBEA387526D2765F001996DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEA387326D2765F001996DB /* Main.storyboard */; };
+		BBEA387726D27662001996DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBEA387626D27662001996DB /* Assets.xcassets */; };
+		BBEA387A26D27662001996DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEA387826D27662001996DB /* LaunchScreen.storyboard */; };
+		BBEA388426D2797B001996DB /* RKExpandableMenu in Frameworks */ = {isa = PBXBuildFile; productRef = BBEA388326D2797B001996DB /* RKExpandableMenu */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BBEA386A26D2765F001996DB /* RKExpandableMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKExpandableMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBEA386D26D2765F001996DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BBEA386F26D2765F001996DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BBEA387126D2765F001996DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BBEA387426D2765F001996DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BBEA387626D27662001996DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BBEA387926D27662001996DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BBEA387B26D27662001996DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBEA386726D2765F001996DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBEA388426D2797B001996DB /* RKExpandableMenu in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBEA386126D2765F001996DB = {
+			isa = PBXGroup;
+			children = (
+				BBEA386C26D2765F001996DB /* RKExpandableMenuDemo */,
+				BBEA386B26D2765F001996DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBEA386B26D2765F001996DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBEA386A26D2765F001996DB /* RKExpandableMenuDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBEA386C26D2765F001996DB /* RKExpandableMenuDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BBEA386D26D2765F001996DB /* AppDelegate.swift */,
+				BBEA386F26D2765F001996DB /* SceneDelegate.swift */,
+				BBEA387126D2765F001996DB /* ViewController.swift */,
+				BBEA387326D2765F001996DB /* Main.storyboard */,
+				BBEA387626D27662001996DB /* Assets.xcassets */,
+				BBEA387826D27662001996DB /* LaunchScreen.storyboard */,
+				BBEA387B26D27662001996DB /* Info.plist */,
+			);
+			path = RKExpandableMenuDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BBEA386926D2765F001996DB /* RKExpandableMenuDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBEA387E26D27662001996DB /* Build configuration list for PBXNativeTarget "RKExpandableMenuDemo" */;
+			buildPhases = (
+				BBEA386626D2765F001996DB /* Sources */,
+				BBEA386726D2765F001996DB /* Frameworks */,
+				BBEA386826D2765F001996DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RKExpandableMenuDemo;
+			packageProductDependencies = (
+				BBEA388326D2797B001996DB /* RKExpandableMenu */,
+			);
+			productName = RKExpandableMenuDemo;
+			productReference = BBEA386A26D2765F001996DB /* RKExpandableMenuDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBEA386226D2765F001996DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					BBEA386926D2765F001996DB = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = BBEA386526D2765F001996DB /* Build configuration list for PBXProject "RKExpandableMenuDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BBEA386126D2765F001996DB;
+			packageReferences = (
+				BBEA388226D2797B001996DB /* XCRemoteSwiftPackageReference "RKExpandableMenu" */,
+			);
+			productRefGroup = BBEA386B26D2765F001996DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBEA386926D2765F001996DB /* RKExpandableMenuDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BBEA386826D2765F001996DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBEA387A26D27662001996DB /* LaunchScreen.storyboard in Resources */,
+				BBEA387726D27662001996DB /* Assets.xcassets in Resources */,
+				BBEA387526D2765F001996DB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBEA386626D2765F001996DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBEA387226D2765F001996DB /* ViewController.swift in Sources */,
+				BBEA386E26D2765F001996DB /* AppDelegate.swift in Sources */,
+				BBEA387026D2765F001996DB /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BBEA387326D2765F001996DB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBEA387426D2765F001996DB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BBEA387826D27662001996DB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBEA387926D27662001996DB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BBEA387C26D27662001996DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BBEA387D26D27662001996DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BBEA387F26D27662001996DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6RS859928;
+				INFOPLIST_FILE = RKExpandableMenuDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.magnet.RKExpandableMenuDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BBEA388026D27662001996DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V6RS859928;
+				INFOPLIST_FILE = RKExpandableMenuDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.magnet.RKExpandableMenuDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBEA386526D2765F001996DB /* Build configuration list for PBXProject "RKExpandableMenuDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBEA387C26D27662001996DB /* Debug */,
+				BBEA387D26D27662001996DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBEA387E26D27662001996DB /* Build configuration list for PBXNativeTarget "RKExpandableMenuDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBEA387F26D27662001996DB /* Debug */,
+				BBEA388026D27662001996DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BBEA388226D2797B001996DB /* XCRemoteSwiftPackageReference "RKExpandableMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rezamagnet/RKExpandableMenu";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BBEA388326D2797B001996DB /* RKExpandableMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BBEA388226D2797B001996DB /* XCRemoteSwiftPackageReference "RKExpandableMenu" */;
+			productName = RKExpandableMenu;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = BBEA386226D2765F001996DB /* Project object */;
+}

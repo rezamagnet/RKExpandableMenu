@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "RKExpandableMenu",
+        "repositoryURL": "https://github.com/rezamagnet/RKExpandableMenu",
+        "state": {
+          "branch": "main",
+          "revision": "2e0f5a3b7f5afc27da1cf9d9ec5e06b78e026c02",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
