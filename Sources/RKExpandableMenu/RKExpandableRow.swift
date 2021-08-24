@@ -12,6 +12,7 @@ public protocol RKExpandableRow {
     var headerAction: (() -> ())? { get set }
     var items: [RKExpandableRowItem] { get set }
     var footerTitle: String? { get }
+    var footerTitleColor: UIColor? { get }
     var footerImage: UIImage? { get }
     var footerAction: (() -> ())? { get set }
 }

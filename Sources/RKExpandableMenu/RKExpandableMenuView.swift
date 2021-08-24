@@ -27,6 +27,7 @@ public class RKExpandableMenuView: UIView {
             headerAction: model.headerAction,
             items: model.items,
             footerTitle: model.footerTitle,
+            footerTitleColor: model.footerTitleColor,
             footerImage: model.footerImage,
             footerAction: model.footerAction
         )
@@ -180,6 +181,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let expandableFooterMenuView = ExpandableFooterMenuView()
         expandableFooterMenuView.model = ExpandableFooterMenuModel(title: datasource.footerTitle, image: datasource.footerImage)
+        expandableFooterMenuView.titleLabel.textColor = datasource.footerTitleColor
         expandableFooterMenuView.backgroundColor = customBackgroundColor
         return expandableFooterMenuView
     }
@@ -239,11 +241,12 @@ extension RKExpandableMenuView: UITableViewDataSource {
 extension RKExpandableMenuView {
     struct RKExpandableRowModel: RKExpandableRow {
         
-        init(headerTitle: String? = nil, headerAction: (() -> ())? = nil, items: [RKExpandableRowItem], footerTitle: String? = nil, footerImage: UIImage? = nil, footerAction: (() -> ())? = nil) {
+        init(headerTitle: String? = nil, headerAction: (() -> ())? = nil, items: [RKExpandableRowItem], footerTitle: String? = nil, footerTitleColor: UIColor? = nil, footerImage: UIImage? = nil, footerAction: (() -> ())? = nil) {
             self.headerTitle = headerTitle
             self.headerAction = headerAction
             self.items = items
             self.footerTitle = footerTitle
+            self.footerTitleColor = footerTitleColor
             self.footerImage = footerImage
             self.footerAction = footerAction
         }
@@ -253,6 +256,7 @@ extension RKExpandableMenuView {
             self.headerAction = nil
             self.items = []
             self.footerTitle = nil
+            self.footerTitleColor = nil
             self.footerImage = nil
             self.footerAction = nil
         }
@@ -261,6 +265,7 @@ extension RKExpandableMenuView {
         var headerAction: (() -> ())?
         var items: [RKExpandableRowItem]
         var footerTitle: String?
+        var footerTitleColor: UIColor?
         var footerImage: UIImage?
         var footerAction: (() -> ())?
     }

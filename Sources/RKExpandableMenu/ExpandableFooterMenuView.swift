@@ -15,7 +15,7 @@ protocol ExpandableFooterMenu {
 class ExpandableFooterMenuView: UIView {
 
     private var imageView = UIImageView()
-    private var titleLabel = UILabel()
+    private(set) var titleLabel = UILabel()
     
     private lazy var rootStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
     
