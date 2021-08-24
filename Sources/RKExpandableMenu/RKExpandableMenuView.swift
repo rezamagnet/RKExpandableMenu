@@ -147,6 +147,7 @@ extension RKExpandableMenuView: UITableViewDelegate {
         self.model?.items[indexPath.row].isSelected = true
         tableView.reloadData()
         model.items[indexPath.row].action()
+        isHidden = true
     }
 }
 
