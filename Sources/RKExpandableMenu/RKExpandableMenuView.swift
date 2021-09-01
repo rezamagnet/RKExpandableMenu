@@ -142,11 +142,15 @@ extension RKExpandableMenuView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let model = model else { fatalError("Must have model") }
         guard model.items[indexPath.row].isSelected == false else { return }
-        for index in model.items.indices {
-            self.model?.items[index].isSelected = false
+        if self.model?.items[indexPath.row].isImageStable == true {
+            // No need to update isSelected
+        } else {
+            for index in model.items.indices {
+                self.model?.items[index].isSelected = false
+            }
+            self.model?.items[indexPath.row].isSelected = true
+            tableView.reloadData()
         }
-        self.model?.items[indexPath.row].isSelected = true
-        tableView.reloadData()
         model.items[indexPath.row].action()
         isHidden = true
     }
