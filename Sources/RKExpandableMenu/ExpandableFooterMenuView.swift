@@ -14,6 +14,7 @@ protocol ExpandableFooterMenu {
 
 class ExpandableFooterMenuView: UIView {
 
+    var action: (() -> ()) = { }
     private var imageView = UIImageView()
     private(set) var titleLabel = UILabel()
     
@@ -59,6 +60,12 @@ class ExpandableFooterMenuView: UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: Setting.smallImageSize).isActive = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTouch))
+        addGestureRecognizer(tapGesture)
     }
 
+    @objc private func didTouch() {
+        action()
+    }
+    
 }

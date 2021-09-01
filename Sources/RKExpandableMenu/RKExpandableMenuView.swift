@@ -186,6 +186,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
         let expandableFooterMenuView = ExpandableFooterMenuView()
         expandableFooterMenuView.model = ExpandableFooterMenuModel(title: datasource.footerTitle, image: datasource.footerImage)
         expandableFooterMenuView.titleLabel.textColor = datasource.footerTitleColor
+        expandableFooterMenuView.action = { [unowned self] in datasource.footerAction?() }
         expandableFooterMenuView.backgroundColor = customBackgroundColor
         return expandableFooterMenuView
     }
