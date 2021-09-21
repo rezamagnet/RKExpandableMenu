@@ -35,7 +35,7 @@ open class ExpandableCellView: UIView {
         case .onLeft:
             rootStackView.insertArrangedSubview(tickImageView, at: .zero)
         case .onRight:
-            rootStackView.insertArrangedSubview(tickImageView, at: 1)
+            rootStackView.insertArrangedSubview(tickImageView, at: 2)
         }
     }
     
