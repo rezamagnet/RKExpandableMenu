@@ -127,15 +127,6 @@ public class RKExpandableMenuView: UIView {
         }
     }
     
-    public func selectRow(at index: Int) {
-        guard let model = model else { fatalError("Must have model") }
-        for index in model.items.indices {
-            self.model?.items[index].isSelected = false
-        }
-        self.model?.items[index].isSelected = true
-        tableView.reloadData()
-    }
-    
 }
 
 extension RKExpandableMenuView: UITableViewDelegate {
@@ -152,7 +143,7 @@ extension RKExpandableMenuView: UITableViewDelegate {
             tableView.reloadData()
         }
         model.items[indexPath.row].action()
-        isHidden = true
+        isHidden = Setting.isDismissibleBySelection
     }
 }
 
@@ -227,7 +218,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
         } else {
             preferredImage = Setting.defaultSelectedImage
         }
-        cell.content.model = ExpandableCellModel(title: datasource.items[indexPath.row].title, selectedImage: preferredImage, isSelected: datasource.items[indexPath.row].isSelected, isImageStable: datasource.items[indexPath.row].isImageStable)
+        cell.content.model = ExpandableCellModel(image: datasource.items[indexPath.row].image ,title: datasource.items[indexPath.row].title, selectedImage: preferredImage, isSelected: datasource.items[indexPath.row].isSelected, isImageStable: datasource.items[indexPath.row].isImageStable)
         
         cell.backgroundColor = customBackgroundColor
         cell.selectionStyle = .none
@@ -281,8 +272,10 @@ extension RKExpandableMenuView {
     }
     
     struct ExpandableCellModel: ExpandableCell {
+        var image: UIImage?
         var title: String
         var selectedImage: UIImage?
+        var unselectedImage: UIImage?
         var isSelected: Bool
         var isImageStable: Bool
     }

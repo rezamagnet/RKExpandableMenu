@@ -22,5 +22,6 @@ public protocol RKExpandableRowItem {
     var selectedImage: UIImage? { get }
     var isImageStable: Bool { get }
     var title: String { get }
+    var image: UIImage? { get }
     var action: (() -> ()) { get }
 }

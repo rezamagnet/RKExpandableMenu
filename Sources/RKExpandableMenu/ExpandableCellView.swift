@@ -8,22 +8,29 @@
 import UIKit
 
 protocol ExpandableCell {
+    var image: UIImage? { get }
     var title: String { get }
     var selectedImage: UIImage? { get }
     var isSelected: Bool { get }
     var isImageStable: Bool { get }
 }
 
-class ExpandableCellView: UIView {
+open class ExpandableCellView: UIView {
     
     typealias Model = ExpandableCell
     var model: Model? { didSet { setModel(model) } }
     
     private func setModel(_ model: Model?) {
         guard let model = model else { return }
+        imageView.image = model.image
+        imageView.isHidden = model.image == nil
         captionLabel.text = model.title
-        tickImageView.image = model.selectedImage
-        tickImageView.isHidden = !model.isSelected && model.isImageStable == false
+        if model.isSelected || model.isImageStable {
+            tickImageView.image = model.selectedImage
+        } else {
+            tickImageView.image = Setting.defaultUnSelectedImage
+        }
+        tickImageView.isHidden = !model.isSelected && model.isImageStable == false && Setting.defaultUnSelectedImage == nil
         switch Setting.selectedImageSide {
         case .onLeft:
             rootStackView.insertArrangedSubview(tickImageView, at: .zero)
@@ -32,6 +39,7 @@ class ExpandableCellView: UIView {
         }
     }
     
+    let imageView = UIImageView()
     let captionLabel = UILabel()
     let tickImageView: UIImageView = {
         let imageView = UIImageView()
@@ -42,7 +50,7 @@ class ExpandableCellView: UIView {
     }()
     
     lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [captionLabel])
+        let stackView = UIStackView(arrangedSubviews: [imageView, captionLabel])
         stackView.axis = .horizontal
         stackView.spacing = .zero
         return stackView
@@ -53,7 +61,7 @@ class ExpandableCellView: UIView {
         setup()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
@@ -67,5 +75,9 @@ class ExpandableCellView: UIView {
             rootStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             rootStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
+        rootStackView.spacing = 4
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: Setting.leadingImageSize).isActive = true
+        imageView.contentMode = .scaleAspectFit
     }
 }
