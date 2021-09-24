@@ -13,24 +13,34 @@ public class RKExpandableMenuView: UIView {
     public typealias Model = RKExpandableRow
     public var model: Model? { didSet { setModel(model) } }
     
-    private var datasource = RKExpandableRowModel() {
-        didSet {
-            tableView.reloadData()
-            layoutIfNeeded()
-        }
-    }
+    private var items = [ExpandableCellModel]()
+    
+    private var datasource = RKExpandableRowModel()
     
     private func setModel(_ model: Model?) {
         guard let model = model else { fatalError(#function) }
         datasource = RKExpandableRowModel(
             headerTitle: model.headerTitle,
             headerAction: model.headerAction,
-            items: model.items,
+            items: [],
             footerTitle: model.footerTitle,
             footerTitleColor: model.footerTitleColor,
             footerImage: model.footerImage,
             footerAction: model.footerAction
         )
+        
+        items = model.items.map {
+            let preferredImage: UIImage
+            if let image = $0.selectedImage {
+                preferredImage = image
+            } else {
+                preferredImage = Setting.defaultSelectedImage
+            }
+            return ExpandableCellModel(image: $0.image ,title: $0.title, selectedImage: preferredImage, isSelected: $0.isSelected, isImageStable: $0.isImageStable, action: $0.action)
+        }
+
+        tableView.reloadData()
+        layoutIfNeeded()
     }
     
     private lazy var myHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: .zero)
@@ -110,7 +120,7 @@ public class RKExpandableMenuView: UIView {
         layer.cornerRadius = radius
         
         if Setting.cellSize * CGFloat(Setting.numberOfShownCell) <= tableView.contentSize.height {
-            let numberOfCells = Setting.numberOfShownCell <= datasource.items.count ? Setting.numberOfShownCell : datasource.items.count
+            let numberOfCells = Setting.numberOfShownCell <= items.count ? Setting.numberOfShownCell : items.count
             var headerFooterHeight: CGFloat = .zero
             
             if model?.headerTitle != nil {
@@ -131,18 +141,17 @@ public class RKExpandableMenuView: UIView {
 
 extension RKExpandableMenuView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let model = model else { fatalError("Must have model") }
-        guard model.items[indexPath.row].isSelected == false else { return }
-        if self.model?.items[indexPath.row].isImageStable == true {
+        guard items[indexPath.row].isSelected == false else { return }
+        if items[indexPath.row].isImageStable == true {
             // No need to update isSelected
         } else {
-            for index in model.items.indices {
-                self.model?.items[index].isSelected = false
+            for index in items.indices {
+                items[index].isSelected = false
             }
-            self.model?.items[indexPath.row].isSelected = true
+            items[indexPath.row].isSelected = true
             tableView.reloadData()
         }
-        model.items[indexPath.row].action()
+        items[indexPath.row].action()
         isHidden = Setting.isDismissibleBySelection
     }
 }
@@ -207,29 +216,16 @@ extension RKExpandableMenuView: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        datasource.items.count
+        items.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BaseTableViewCell<ExpandableCellView>()
-        let preferredImage: UIImage
-        if let image = model?.items[indexPath.row].selectedImage {
-            preferredImage = image
-        } else {
-            preferredImage = Setting.defaultSelectedImage
-        }
-        cell.content.model = ExpandableCellModel(image: datasource.items[indexPath.row].image ,title: datasource.items[indexPath.row].title, selectedImage: preferredImage, isSelected: datasource.items[indexPath.row].isSelected, isImageStable: datasource.items[indexPath.row].isImageStable)
         
+        let cell = BaseTableViewCell<ExpandableCellView>()
+        cell.content.model = items[indexPath.row]
         cell.backgroundColor = customBackgroundColor
         cell.selectionStyle = .none
         return cell
-    }
-    
-    
-    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        for view in cell.subviews {
-            view.removeFromSuperview()
-        }
     }
     
 }
@@ -278,5 +274,16 @@ extension RKExpandableMenuView {
         var unselectedImage: UIImage?
         var isSelected: Bool
         var isImageStable: Bool
+        var action: (() -> ())
+        
+        internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, action: @escaping (() -> ())) {
+            self.image = image
+            self.title = title
+            self.selectedImage = selectedImage
+            self.unselectedImage = unselectedImage
+            self.isSelected = isSelected
+            self.isImageStable = isImageStable
+            self.action = action
+        }
     }
 }
