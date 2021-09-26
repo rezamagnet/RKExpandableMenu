@@ -7,13 +7,13 @@
 
 import UIKit
 
-public class RKExpandableMenuView: UIView {
+open class RKExpandableMenuView: UIView {
     static let identifier = "ExpandableCell"
     
     public typealias Model = RKExpandableRow
     public var model: Model? { didSet { setModel(model) } }
     
-    private var items = [ExpandableCellModel]()
+    public var items = [ExpandableCellModel]()
     
     private var datasource = RKExpandableRowModel()
     
@@ -76,7 +76,7 @@ public class RKExpandableMenuView: UIView {
         setup()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
@@ -219,7 +219,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
         items.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = BaseTableViewCell<ExpandableCellView>()
         cell.content.model = items[indexPath.row]
@@ -267,14 +267,14 @@ extension RKExpandableMenuView {
         var image: UIImage?
     }
     
-    struct ExpandableCellModel: ExpandableCell {
-        var image: UIImage?
-        var title: String
-        var selectedImage: UIImage?
-        var unselectedImage: UIImage?
-        var isSelected: Bool
-        var isImageStable: Bool
-        var action: (() -> ())
+    public struct ExpandableCellModel: ExpandableCell {
+        public var image: UIImage?
+        public var title: String
+        public var selectedImage: UIImage?
+        public var unselectedImage: UIImage?
+        public var isSelected: Bool
+        public var isImageStable: Bool
+        public var action: (() -> ())
         
         internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, action: @escaping (() -> ())) {
             self.image = image

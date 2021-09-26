@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ExpandableCell {
+public protocol ExpandableCell {
     var image: UIImage? { get }
     var title: String { get }
     var selectedImage: UIImage? { get }
@@ -17,10 +17,10 @@ protocol ExpandableCell {
 
 open class ExpandableCellView: UIView {
     
-    typealias Model = ExpandableCell
-    var model: Model? { didSet { setModel(model) } }
+    public typealias Model = ExpandableCell
+    public var model: Model? { didSet { setModel(model) } }
     
-    private func setModel(_ model: Model?) {
+    open func setModel(_ model: Model?) {
         guard let model = model else { return }
         imageView.image = model.image
         imageView.isHidden = model.image == nil
@@ -49,7 +49,7 @@ open class ExpandableCellView: UIView {
         return imageView
     }()
     
-    lazy var rootStackView: UIStackView = {
+    public lazy var rootStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [imageView, captionLabel])
         stackView.axis = .horizontal
         stackView.spacing = .zero
@@ -66,7 +66,7 @@ open class ExpandableCellView: UIView {
         setup()
     }
     
-    private func setup() {
+    open func setup() {
         addSubview(rootStackView)
         rootStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

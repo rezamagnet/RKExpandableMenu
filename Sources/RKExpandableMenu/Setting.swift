@@ -8,7 +8,7 @@
 import UIKit
 
 public enum Setting {
-    static let smallImageSize: CGFloat = 24
+    public static let smallImageSize: CGFloat = 24
     public static let horizontalInset: CGFloat = 16
     public static let cellSize: CGFloat = 44
     public static var selectedImageSide: SelectedImageSide = .onLeft
