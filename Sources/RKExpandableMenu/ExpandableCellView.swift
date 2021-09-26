@@ -13,6 +13,7 @@ public protocol ExpandableCell {
     var selectedImage: UIImage? { get }
     var isSelected: Bool { get }
     var isImageStable: Bool { get }
+    var userInfo: [String: Any]? { get }
 }
 
 open class ExpandableCellView: UIView {

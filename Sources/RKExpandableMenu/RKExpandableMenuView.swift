@@ -38,7 +38,7 @@ open class RKExpandableMenuView: UIView {
             } else {
                 preferredImage = setting.defaultSelectedImage
             }
-            return ExpandableCellModel(image: $0.image ,title: $0.title, selectedImage: preferredImage, isSelected: $0.isSelected, isImageStable: $0.isImageStable, action: $0.action)
+            return ExpandableCellModel(image: $0.image ,title: $0.title, selectedImage: preferredImage, isSelected: $0.isSelected, isImageStable: $0.isImageStable, userInfo: $0.userInfo, action: $0.action)
         }
 
         tableView.reloadData()
@@ -278,15 +278,17 @@ extension RKExpandableMenuView {
         public var unselectedImage: UIImage?
         public var isSelected: Bool
         public var isImageStable: Bool
+        public var userInfo: [String : Any]?
         public var action: (() -> ())
         
-        internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, action: @escaping (() -> ())) {
+        internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, userInfo: [String: Any]?, action: @escaping (() -> ())) {
             self.image = image
             self.title = title
             self.selectedImage = selectedImage
             self.unselectedImage = unselectedImage
             self.isSelected = isSelected
             self.isImageStable = isImageStable
+            self.userInfo = userInfo
             self.action = action
         }
     }

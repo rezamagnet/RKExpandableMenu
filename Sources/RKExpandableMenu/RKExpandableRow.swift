@@ -24,4 +24,5 @@ public protocol RKExpandableRowItem {
     var title: String { get }
     var image: UIImage? { get }
     var action: (() -> ()) { get }
+    var userInfo: [String: Any]? { get }
 }
