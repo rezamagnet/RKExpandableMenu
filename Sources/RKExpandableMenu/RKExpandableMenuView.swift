@@ -10,6 +10,8 @@ import UIKit
 open class RKExpandableMenuView: UIView {
     static let identifier = "ExpandableCell"
     
+    public var setting = Setting.default
+    
     public typealias Model = RKExpandableRow
     public var model: Model? { didSet { setModel(model) } }
     
@@ -34,7 +36,7 @@ open class RKExpandableMenuView: UIView {
             if let image = $0.selectedImage {
                 preferredImage = image
             } else {
-                preferredImage = Setting.defaultSelectedImage
+                preferredImage = setting.defaultSelectedImage
             }
             return ExpandableCellModel(image: $0.image ,title: $0.title, selectedImage: preferredImage, isSelected: $0.isSelected, isImageStable: $0.isImageStable, action: $0.action)
         }
@@ -119,19 +121,19 @@ open class RKExpandableMenuView: UIView {
         layer.shadowOffset = .zero
         layer.cornerRadius = radius
         
-        if Setting.cellSize * CGFloat(Setting.numberOfShownCell) <= tableView.contentSize.height {
-            let numberOfCells = Setting.numberOfShownCell <= items.count ? Setting.numberOfShownCell : items.count
+        if setting.cellSize * CGFloat(setting.numberOfShownCell) <= tableView.contentSize.height {
+            let numberOfCells = setting.numberOfShownCell <= items.count ? setting.numberOfShownCell : items.count
             var headerFooterHeight: CGFloat = .zero
             
             if model?.headerTitle != nil {
-                headerFooterHeight += Setting.cellSize
+                headerFooterHeight += setting.cellSize
             }
             
             if model?.footerTitle != nil {
-                headerFooterHeight += Setting.cellSize
+                headerFooterHeight += setting.cellSize
             }
             
-            myHeightConstraint.constant = (Setting.cellSize * CGFloat(numberOfCells)) + headerFooterHeight
+            myHeightConstraint.constant = (setting.cellSize * CGFloat(numberOfCells)) + headerFooterHeight
         } else {
             myHeightConstraint.constant = tableView.contentSize.height
         }
@@ -152,7 +154,7 @@ extension RKExpandableMenuView: UITableViewDelegate {
             tableView.reloadData()
         }
         items[indexPath.row].action()
-        isHidden = Setting.isDismissibleBySelection
+        isHidden = setting.isDismissibleBySelection
     }
 }
 
@@ -167,8 +169,8 @@ extension RKExpandableMenuView: UITableViewDataSource {
             NSLayoutConstraint.activate([
                 captionLabel.topAnchor.constraint(equalTo: view.topAnchor),
                 captionLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                captionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Setting.horizontalInset),
-                captionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Setting.horizontalInset)
+                captionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: setting.horizontalInset),
+                captionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -setting.horizontalInset)
             ])
             captionLabel.text = headerTitle
             captionLabel.textColor = .black
@@ -183,7 +185,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let expandableFooterMenuView = ExpandableFooterMenuView()
+        let expandableFooterMenuView = ExpandableFooterMenuView(setting: setting)
         expandableFooterMenuView.model = ExpandableFooterMenuModel(title: datasource.footerTitle, image: datasource.footerImage)
         expandableFooterMenuView.titleLabel.textColor = datasource.footerTitleColor
         expandableFooterMenuView.action = { [unowned self] in datasource.footerAction?() }
@@ -199,7 +201,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
         if datasource.headerTitle == nil {
             return .zero
         } else {
-            return Setting.cellSize
+            return setting.cellSize
         }
     }
     
@@ -207,12 +209,12 @@ extension RKExpandableMenuView: UITableViewDataSource {
         if datasource.footerTitle == nil {
             return .zero
         } else {
-            return Setting.cellSize
+            return setting.cellSize
         }
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Setting.cellSize
+        setting.cellSize
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -222,6 +224,7 @@ extension RKExpandableMenuView: UITableViewDataSource {
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = BaseTableViewCell<ExpandableCellView>()
+        cell.content.setting = setting
         cell.content.model = items[indexPath.row]
         cell.backgroundColor = customBackgroundColor
         cell.selectionStyle = .none

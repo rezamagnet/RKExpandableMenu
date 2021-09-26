@@ -32,20 +32,15 @@ class ExpandableFooterMenuView: UIView {
             imageView.isHidden = true
         }
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
+    
+    convenience init(setting: Setting) {
+        self.init(frame: .zero)
+        setup(setting: setting)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    private func setup() {
+    private func setup(setting: Setting) {
         rootStackView.isLayoutMarginsRelativeArrangement = true
-        rootStackView.layoutMargins = .init(top: .zero, left: Setting.horizontalInset, bottom: .zero, right: Setting.horizontalInset)
+        rootStackView.layoutMargins = .init(top: .zero, left: setting.horizontalInset, bottom: .zero, right: setting.horizontalInset)
         rootStackView.axis = .horizontal
         rootStackView.spacing = 8
         addSubview(rootStackView)
@@ -59,7 +54,7 @@ class ExpandableFooterMenuView: UIView {
         
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalToConstant: Setting.smallImageSize).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: setting.smallImageSize).isActive = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTouch))
         addGestureRecognizer(tapGesture)
     }

@@ -17,6 +17,8 @@ public protocol ExpandableCell {
 
 open class ExpandableCellView: UIView {
     
+    public var setting: Setting = .default
+    
     public typealias Model = ExpandableCell
     public var model: Model? { didSet { setModel(model) } }
     
@@ -28,10 +30,10 @@ open class ExpandableCellView: UIView {
         if model.isSelected || model.isImageStable {
             tickImageView.image = model.selectedImage
         } else {
-            tickImageView.image = Setting.defaultUnSelectedImage
+            tickImageView.image = setting.defaultUnSelectedImage
         }
-        tickImageView.isHidden = !model.isSelected && model.isImageStable == false && Setting.defaultUnSelectedImage == nil
-        switch Setting.selectedImageSide {
+        tickImageView.isHidden = !model.isSelected && model.isImageStable == false && setting.defaultUnSelectedImage == nil
+        switch setting.selectedImageSide {
         case .onLeft:
             rootStackView.insertArrangedSubview(tickImageView, at: .zero)
         case .onRight:
@@ -41,11 +43,11 @@ open class ExpandableCellView: UIView {
     
     let imageView = UIImageView()
     let captionLabel = UILabel()
-    let tickImageView: UIImageView = {
+    lazy var tickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.widthAnchor.constraint(equalToConstant: Setting.smallImageSize).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: setting.smallImageSize).isActive = true
         return imageView
     }()
     
@@ -77,7 +79,7 @@ open class ExpandableCellView: UIView {
         ])
         rootStackView.spacing = 4
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalToConstant: Setting.leadingImageSize).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: setting.leadingImageSize).isActive = true
         imageView.contentMode = .scaleAspectFit
     }
 }
