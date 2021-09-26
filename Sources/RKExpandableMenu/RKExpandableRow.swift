@@ -18,11 +18,15 @@ public protocol RKExpandableRow {
 }
 
 public protocol RKExpandableRowItem {
+    var id: String { get }
     var isSelected: Bool { get set }
     var selectedImage: UIImage? { get }
     var isImageStable: Bool { get }
     var title: String { get }
     var image: UIImage? { get }
     var action: (() -> ()) { get }
-    var userInfo: [String: Any]? { get }
+}
+
+public extension RKExpandableRowItem {
+    var id: String { "" }
 }

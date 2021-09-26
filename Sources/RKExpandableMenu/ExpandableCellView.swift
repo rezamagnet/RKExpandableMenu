@@ -8,12 +8,12 @@
 import UIKit
 
 public protocol ExpandableCell {
+    var id: String { get }
     var image: UIImage? { get }
     var title: String { get }
     var selectedImage: UIImage? { get }
     var isSelected: Bool { get }
     var isImageStable: Bool { get }
-    var userInfo: [String: Any]? { get }
 }
 
 open class ExpandableCellView: UIView {
