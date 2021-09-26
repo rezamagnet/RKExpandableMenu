@@ -49,6 +49,7 @@ open class RKExpandableMenuView: UIView {
     
     public var customBackgroundColor: UIColor = .white {
         didSet {
+            tableView.backgroundColor = customBackgroundColor
             tableView.reloadData()
         }
     }
