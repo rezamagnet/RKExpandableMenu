@@ -281,7 +281,7 @@ extension RKExpandableMenuView {
         public var userInfo: [String : Any]?
         public var action: (() -> ())
         
-        internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, userInfo: [String: Any]?, action: @escaping (() -> ())) {
+        internal init(image: UIImage? = nil, title: String, selectedImage: UIImage? = nil, unselectedImage: UIImage? = nil, isSelected: Bool, isImageStable: Bool, userInfo: [String: Any]? = nil, action: @escaping (() -> ())) {
             self.image = image
             self.title = title
             self.selectedImage = selectedImage
