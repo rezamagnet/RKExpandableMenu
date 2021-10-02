@@ -42,8 +42,8 @@ open class ExpandableCellView: UIView {
         }
     }
     
-    let imageView = UIImageView()
-    let captionLabel = UILabel()
+    public let imageView = UIImageView()
+    public let captionLabel = UILabel()
     lazy var tickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
