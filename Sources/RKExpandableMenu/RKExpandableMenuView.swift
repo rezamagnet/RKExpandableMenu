@@ -65,7 +65,7 @@ open class RKExpandableMenuView: UIView {
     public var headerFont: UIFont = .boldSystemFont(ofSize: 16) { didSet { tableView.reloadData() } }
     
     var mainView = UIView()
-    lazy var tableView: UITableView = {
+    public private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.identifier)
         tableView.delegate = self
