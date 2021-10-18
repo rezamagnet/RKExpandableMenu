@@ -71,11 +71,13 @@ open class RKExpandableMenuView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = true
+#if swift(>=5.5)
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = .zero
         } else {
             // Fallback on earlier versions
         }
+#endif
         return tableView
     }()
     
