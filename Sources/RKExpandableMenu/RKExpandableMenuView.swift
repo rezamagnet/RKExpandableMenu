@@ -151,7 +151,11 @@ open class RKExpandableMenuView: UIView {
 
 extension RKExpandableMenuView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard items[indexPath.row].isSelected == false else { return }
+        if setting.repeatableSelection {
+            
+        } else {
+            guard items[indexPath.row].isSelected == false else { return }            
+        }
         if items[indexPath.row].isImageStable == true {
             // No need to update isSelected
         } else {

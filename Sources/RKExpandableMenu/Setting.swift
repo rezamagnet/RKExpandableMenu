@@ -11,6 +11,7 @@ public struct Setting {
     
     public static let `default` = Setting()
     
+    public var repeatableSelection: Bool = false
     public var smallImageSize: CGFloat = 24
     public var horizontalInset: CGFloat = 16
     public var cellSize: CGFloat = 44
